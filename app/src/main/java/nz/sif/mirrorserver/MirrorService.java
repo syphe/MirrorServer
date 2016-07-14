@@ -18,7 +18,6 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import nz.sif.mirrorserver.messaging.MessageBase;
-import nz.sif.mirrorserver.notifications.NotificationBroadcastReceiver;
 
 /**
  * Created by simon on 13/07/16.
@@ -27,12 +26,9 @@ public class MirrorService extends Service {
     private static boolean isStarted;
     private Thread listenerThread;
     private static Queue<MessageBase> messageQueue;
-    private NotificationBroadcastReceiver notificationReceiver;
 
     public MirrorService() {
         messageQueue = new ConcurrentLinkedQueue<MessageBase>();
-        notificationReceiver = new NotificationBroadcastReceiver();
-        notificationReceiver.register(this);
     }
 
     @Nullable
@@ -71,7 +67,6 @@ public class MirrorService extends Service {
                         Log.i("MirrorService", "Socket connected");
 
                         OutputStream outputStream = clientSocket.getOutputStream();
-                        //ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
 
                         while (getIsStarted()) {
                             if (messageQueue.peek() == null) {
@@ -88,12 +83,8 @@ public class MirrorService extends Service {
                             byte[] bytes = SerializationUtils.serialize(message);
                             outputStream.write(bytes);
                             outputStream.flush();
-
-                            //objectOutputStream.writeObject(message);
-                            //objectOutputStream.flush();
                         }
 
-                        //objectOutputStream.close();
                         serverSocket.close();
                         Log.i("MirrorService", "Socket Closed");
                     } catch (IOException e) {
