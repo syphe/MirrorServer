@@ -16,7 +16,7 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".MirrorService" />
+        <service android:name=".service.MirrorService" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

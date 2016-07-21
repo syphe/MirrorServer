@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 import nz.sif.mirrorserver.notifications.NotificationsRecyclerViewAdapter;
+import nz.sif.mirrorserver.service.MirrorService;
 import nz.sif.mirrorserver.viewmodel.MainActivityViewModel;
 import nz.sif.mirrorserver.messaging.MessageBase;
 
